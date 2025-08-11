@@ -1,0 +1,381 @@
+<!--
+Biodata Sekolah - Single HTML file
+Cara pakai:
+1. Simpan file ini sebagai `biodata_sekolah.html`.
+2. Ganti gambar placeholder `photo.jpg` dengan foto kamu (letakkan di folder yang sama) atau pakai URL gambar.
+3. Pilih tema dengan menambahkan class `theme-pastel` atau `theme-elegant` ke elemen <body>.
+
+Contoh: <body class="theme-pastel"> atau <body class="theme-elegant">.
+-->
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biodata Sekolah</title>
+    <style>
+      :root {
+        --radius: 16px;
+        --card-padding: 24px;
+        --max-width: 900px;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        --muted: #6b7280;
+      }
+
+      /* Pastel theme (default) */
+      .theme-pastel {
+        --bg: linear-gradient(135deg, #fff7fb 0%, #f0fbff 100%);
+        --primary: #ff7eb6; /* pink */
+        --accent: #7ee8fa; /* cyan */
+        --card-bg: #ffffff;
+        --text: #0f172a;
+        --accent-2: #ffd6a5;
+      }
+
+      /* Elegant theme */
+      .theme-elegant {
+        --bg: linear-gradient(135deg, #f8fafc 0%, #f3f4f6 100%);
+        --primary: #0f172a; /* dark navy */
+        --accent: #64748b; /* slate */
+        --card-bg: #ffffff;
+        --text: #0b1220;
+        --accent-2: #e6e8ea;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: var(--max-width);
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: var(--card-padding);
+      }
+
+      /* left column (photo & quick info) */
+      .left {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .photo-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .photo {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        border: 6px solid var(--accent-2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.65),
+          rgba(255, 255, 255, 0.35)
+        );
+      }
+
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .name {
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .role {
+        font-size: 14px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .info-list {
+        margin-top: 6px;
+        display: grid;
+        gap: 8px;
+      }
+      .info-item {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+      }
+      .label {
+        width: 86px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .value {
+        flex: 1;
+      }
+
+      /* right column (detail) */
+      .right {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .title {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+      }
+
+      .tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .tag {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.8),
+          rgba(0, 0, 0, 0.02)
+        );
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        font-weight: 600;
+        font-size: 13px;
+      }
+
+      .section {
+        padding: 14px;
+        border-radius: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(255, 255, 255, 0.9)
+        );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      }
+
+      .section h3 {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+      }
+      .section p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .list {
+        display: grid;
+        gap: 6px;
+      }
+      .list-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .bullet {
+        width: 8px;
+        height: 8px;
+        border-radius: 3px;
+        background: var(--primary);
+        margin-top: 7px;
+        flex-shrink: 0;
+      }
+
+      /* small print */
+      .footer {
+        font-size: 12px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      /* responsive */
+      @media (max-width: 880px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+        .photo {
+          width: 130px;
+          height: 130px;
+        }
+      }
+
+      /* Accent decorative stripe for pastel theme */
+      .decor {
+        height: 8px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+      }
+
+      /* small print for instructions inside the page */
+      .meta {
+        font-size: 12px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body class="theme-pastel">
+    <div class="container">
+      <div class="card left">
+        <div class="decor"></div>
+        <div class="photo-wrap">
+          <div class="photo">
+            <!-- Ganti 'photo.jpg' dengan nama file fotomu -->
+            <img src="photo.jpg" alt="Foto" />
+          </div>
+        </div>
+
+        <div>
+          <div class="name">Nama Lengkap</div>
+          <div class="role">Kelas / Sekolah</div>
+        </div>
+
+        <div class="info-list">
+          <div class="info-item">
+            <div class="label">TTL</div>
+            <div class="value">Bandung, 1 Januari 2008</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Alamat</div>
+            <div class="value">Jl. Contoh No. 123, Bandung</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Sekolah</div>
+            <div class="value">SMP Negeri Contoh</div>
+          </div>
+          <div class="info-item">
+            <div class="label">Kelas</div>
+            <div class="value">VIII IPA 1</div>
+          </div>
+          <div class="info-item">
+            <div class="label">HP</div>
+            <div class="value">0812-3456-7890</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 14px" class="meta">
+          Tip: Untuk mencetak, gunakan File → Print di browser dan pilih 'Scale:
+          100%'.
+        </div>
+      </div>
+
+      <div class="card right">
+        <div class="header-row">
+          <div>
+            <div class="title">Biodata Singkat</div>
+            <div class="meta">
+              Desain untuk tugas sekolah — rapi dan warna cerah.
+            </div>
+          </div>
+          <div class="tags">
+            <div class="tag">Hobi: Membaca</div>
+            <div class="tag">Cita-cita: Dokter</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Tentang Saya</h3>
+          <p>
+            Halo! Saya siswa kelas VIII di SMP Negeri Contoh. Saya suka belajar
+            sains, membaca buku, dan mengikuti kegiatan ekstrakurikuler bola
+            basket. Saya selalu berusaha disiplin dan bertanggung jawab dalam
+            tugas sekolah.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3>Hobi & Kegiatan</h3>
+          <div class="list">
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>Membaca buku fiksi dan non-fiksi</div>
+            </div>
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>Bermain bola basket bersama tim sekolah</div>
+            </div>
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>Ikut OSIS (pengurus kelas)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Cita-cita & Motto</h3>
+          <div class="list">
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>
+                Cita-cita: Ingin menjadi dokter agar bisa membantu orang lain.
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>Motto: "Belajar hari ini, berbuat untuk masa depan."</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Prestasi</h3>
+          <div class="list">
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>Juara 2 Lomba Matematika antar kelas (2024)</div>
+            </div>
+            <div class="list-item">
+              <div class="bullet"></div>
+              <div>Peserta aktif ekstrakurikuler basket</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          Lengkapi biodata ini dengan data pribadimu dan ganti foto di bagian
+          kiri. Selamat mengerjakan tugas!
+        </div>
+      </div>
+    </div>
+
+    <!--
+  Catatan: Jika ingin tema elegan, ganti body class menjadi "theme-elegant".
+  Contoh: <body class="theme-elegant">. Kamu juga bisa kustom warna di :root.
+  --></body>
+</html>
